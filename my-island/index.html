@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Island - Voxel Building Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <!-- 工具欄 -->
+      <div class="toolbar">
+        <div class="mode-switcher">
+          <button id="buildMode" class="active">🏗️ Build</button>
+          <button id="viewMode">👁️ View</button>
+        </div>
+
+        <div class="object-selector">
+          <button class="object-btn active" data-object="tree">🌳 Tree</button>
+          <button class="object-btn" data-object="house">🏠 House</button>
+          <button class="object-btn" data-object="rock">🪨 Rock</button>
+          <button class="object-btn" data-object="lamp">💡 Lamp</button>
+        </div>
+
+        <div class="actions">
+          <button id="deleteMode">🗑️ Delete</button>
+          <button id="clearAll">🔄 Clear</button>
+        </div>
+      </div>
+
+      <!-- 信息面板 -->
+      <div class="info">
+        <h1>My Island</h1>
+        <p id="status">Click on the island to place objects</p>
+        <p class="controls">
+          <small>
+            🖱️ Left Click: Place | Right Click: Rotate Camera<br>
+            ⌨️ R: Rotate Object | Delete: Remove Selected
+          </small>
+        </p>
+      </div>
+
+      <!-- 對象計數 -->
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-label">Objects:</span>
+          <span id="objectCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Grid:</span>
+          <input type="checkbox" id="gridToggle" checked>
+        </div>
+      </div>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

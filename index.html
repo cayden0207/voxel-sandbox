@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voxel Sandbox Spike</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+      <section class="overlay">
+        <h1>Voxel Sandbox Spike</h1>
+        <p>基礎測試：行動裝置上的方塊資料結構與渲染效能。</p>
+        <ul>
+          <li>單一方塊類型，使用 `InstancedMesh` 渲染</li>
+          <li>空白區域等待互動層加入（觸控放置/移除）</li>
+          <li>後續階段會加上手勢偵測與地圖儲存</li>
+        </ul>
+      </section>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
