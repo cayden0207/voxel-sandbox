@@ -11,14 +11,63 @@
       <canvas id="scene"></canvas>
       <section class="overlay">
         <h1>Voxel Sandbox Spike</h1>
-        <p>基礎測試：行動裝置上的方塊資料結構與渲染效能。</p>
-        <ul>
-          <li>單一方塊類型，使用 `InstancedMesh` 渲染</li>
-          <li>空白區域等待互動層加入（觸控放置/移除）</li>
-          <li>後續階段會加上手勢偵測與地圖儲存</li>
-        </ul>
+        <p>Baseline test: mobile-friendly voxel editing with instanced rendering, touch gestures, and autosave.</p>
+        <div class="hint-list">
+          <p class="hint-title">Touch Tips</p>
+          <ul>
+            <li><strong>Single tap:</strong> place block</li>
+            <li><strong>Tap &amp; hold:</strong> remove block</li>
+            <li><strong>Two-finger drag / pinch:</strong> rotate / zoom</li>
+            <li><strong>Undo / Redo:</strong> use the toolbar buttons</li>
+          </ul>
+        </div>
+        <div class="palette" id="blockPalette">
+          <p class="hint-title">Block Palette</p>
+          <div class="palette-grid">
+            <button class="block-btn" data-block="1">
+              <span class="swatch" style="background-color: #7acb72"></span>
+              <span>Grass</span>
+            </button>
+            <button class="block-btn" data-block="2">
+              <span class="swatch" style="background-color: #e9d79c"></span>
+              <span>Sand</span>
+            </button>
+            <button class="block-btn" data-block="3">
+              <span class="swatch" style="background-color: #6f7b86"></span>
+              <span>Stone</span>
+            </button>
+            <button class="block-btn" data-block="4">
+              <span class="swatch" style="background-color: #3aa0ff"></span>
+              <span>Water</span>
+            </button>
+            <button class="block-btn" data-block="5">
+              <span class="swatch" style="background-color: #8f5a33"></span>
+              <span>Wood</span>
+            </button>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat-row">
+            <span>Total Blocks</span>
+            <span id="blockCount">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Current Selection</span>
+            <span id="selectedBlockLabel">Grass</span>
+          </div>
+          <div class="stat-row">
+            <span>Last Save</span>
+            <span id="saveStatus">Never</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="undoAction" type="button" disabled>Undo</button>
+          <button id="redoAction" type="button" disabled>Redo</button>
+        </div>
+        <button id="resetChunk" type="button">Reset Island</button>
       </section>
     </div>
+    <div id="longPressIndicator" aria-hidden="true"></div>
     <script type="importmap">
       {
         "imports": {

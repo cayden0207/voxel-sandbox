@@ -5,6 +5,7 @@
   --panel-bg: rgba(12, 18, 28, 0.78);
   --panel-border: rgba(255, 255, 255, 0.08);
   --accent: #6fd4ff;
+  --accent-warm: #ffc76f;
   font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
 }
 
@@ -25,8 +26,8 @@ body {
 
 #app {
   position: relative;
-  width: min(95vw, 1200px);
-  height: min(92vh, 820px);
+  width: min(95vw, 1400px);
+  height: min(92vh, 860px);
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -44,18 +45,20 @@ body {
   position: absolute;
   top: 24px;
   left: 24px;
-  max-width: 320px;
+  max-width: 340px;
+  max-height: calc(100% - 48px);
   padding: 20px 22px;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: 16px;
   backdrop-filter: blur(14px);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
-  pointer-events: none;
+  pointer-events: auto;
+  overflow-y: auto;
 }
 
 .overlay h1 {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   font-size: 1.6rem;
   letter-spacing: 0.04em;
 }
@@ -67,19 +70,158 @@ body {
   line-height: 1.6;
 }
 
-.overlay ul {
+.hint-list,
+.palette,
+.stats {
+  background: rgba(15, 23, 35, 0.55);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hint-title {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(180, 208, 255, 0.8);
+}
+
+.hint-list ul {
   margin: 0;
   padding-left: 18px;
   display: grid;
   gap: 6px;
-  font-size: 0.88rem;
-  color: rgba(210, 226, 255, 0.8);
+  font-size: 0.86rem;
+  color: rgba(210, 226, 255, 0.85);
 }
 
-.overlay code {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.85rem;
+.hint-list strong {
   color: var(--accent);
+  font-weight: 600;
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.block-btn {
+  pointer-events: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(22, 30, 44, 0.8);
+  color: #f0f6ff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.block-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(111, 212, 255, 0.45);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+}
+
+.block-btn:active {
+  transform: translateY(1px);
+}
+
+.block-btn.active {
+  border-color: rgba(111, 212, 255, 0.7);
+  box-shadow: 0 12px 30px rgba(79, 168, 255, 0.35);
+}
+
+.block-btn span:last-child {
+  flex: 1;
+  text-align: left;
+}
+
+.swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.stats {
+  display: grid;
+  gap: 10px;
+  font-size: 0.88rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(215, 232, 255, 0.85);
+}
+
+.stat-row span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.overlay button {
+  pointer-events: auto;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(20, 30, 45, 0.85);
+  color: #f0f6ff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.overlay button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(111, 212, 255, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.overlay button:active {
+  transform: translateY(1px);
+}
+
+.actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#longPressIndicator {
+  position: fixed;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 115, 115, 0.85);
+  box-shadow: 0 0 18px rgba(255, 115, 115, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.2);
+  transition: opacity 0.15s ease;
+  z-index: 20;
+}
+
+#longPressIndicator.active {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -90,8 +232,18 @@ body {
   }
 
   .overlay {
-    max-width: 90vw;
+    max-width: 94vw;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .palette-grid {
+    grid-template-columns: 1fr;
   }
 }
